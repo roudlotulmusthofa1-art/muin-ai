@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  # 1. FastAPI Backend (MVC ala Laravel)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: muin_backend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:8000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - NINE_ROUTER_BASE_URL=http://9router:20129/v1
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+    volumes:
+      - ./backend/storage:/app/storage
+    depends_on:
+      - 9router
+      - qdrant
+    networks:
+      - muin_network
+
+  # 2. 9Router AI Gateway (Multi-provider LLM router & smart fallback)
+  9router:
+    image: decolua/9router:latest
+    container_name: muin_9router
+    restart: unless-stopped
+    ports:
+      # Port 20129 untuk menghindari tabrakan dengan port 20128 milik chatbot lain
+      - "127.0.0.1:20129:20129"
+    volumes:
+      - 9router_data:/app/data
+    environment:
+      DATA_DIR: /app/data
+      PORT: "20129"
+      HOSTNAME: "0.0.0.0"
+      NODE_ENV: production
+    networks:
+      - muin_network
+
+  # 3. Qdrant Vector Database (Pencarian semantik cepat untuk teks kitab turats)
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: muin_qdrant
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - muin_network
+
+volumes:
+  9router_data:
+  qdrant_data:
+
+networks:
+  muin_network:
+    driver: bridge

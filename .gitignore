@@ -37,3 +37,22 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+
+# Python & Backend
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+backend/.venv/
+backend/storage/pdfs/*
+!backend/storage/pdfs/.gitkeep
+backend/storage/extracted/*
+!backend/storage/extracted/.gitkeep
+
