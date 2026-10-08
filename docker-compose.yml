@@ -9,7 +9,8 @@ services:
     container_name: muin_backend
     restart: unless-stopped
     ports:
-      - "127.0.0.1:8000:8000"
+      # Port 8001 di host (port 8000 sudah dipakai oleh laravel-app)
+      - "127.0.0.1:8001:8000"
     env_file:
       - ./backend/.env
     environment:
@@ -39,6 +40,7 @@ services:
       PORT: "20129"
       HOSTNAME: "0.0.0.0"
       NODE_ENV: production
+      INITIAL_PASSWORD: "muinai2026"
     networks:
       - muin_network
 

@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "Muin AI - Fikih & Tafsir Engine"
     APP_ENV: str = "development"
     APP_DEBUG: bool = True
-    APP_PORT: int = 8000
+    APP_PORT: int = 8001
     APP_HOST: str = "0.0.0.0"
     CORS_ORIGINS: List[str] = [
         "http://localhost:5173",
