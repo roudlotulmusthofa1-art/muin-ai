@@ -5,10 +5,12 @@ import ResearchHeader from './research/ResearchHeader.vue'
 import ResearchMainTabs from './research/ResearchMainTabs.vue'
 import ResearchSourceTabs from './research/ResearchSourceTabs.vue'
 import ResearchFilter from './research/ResearchFilter.vue'
-import ResearchFieldList from './research/ResearchFieldList.vue'
+import ResearchSourceContent from './research/ResearchSourceContent.vue'
 import ResearchFooter from './research/ResearchFooter.vue'
 
 import { researchFields as initialResearchFields } from '../data/researchFields'
+import { researchAuthors as initialResearchAuthors } from '../data/researchAuthors.js'
+import { researchBooks as initialResearchBooks } from '../data/researchBooks'
 
 const emit = defineEmits(['close'])
 
@@ -20,8 +22,36 @@ const researchFields = ref(
   initialResearchFields.map(field => ({ ...field }))
 )
 
+const researchAuthors = ref(
+  initialResearchAuthors.map(author => ({
+    ...author,
+    kitabs: author.kitabs.map(kitab => ({ ...kitab }))
+  }))
+)
+
+const researchBooks = ref(
+  initialResearchBooks.map(book => ({ ...book }))
+)
+
 function toggleField(field) {
   field.open = !field.open
+}
+
+function toggleAuthor(author) {
+  author.open = !author.open
+}
+
+function toggleKitab(author, kitab) {
+  kitab.selected = !kitab.selected
+}
+
+function toggleAllAuthorKitab(author) {
+  const allSelected = author.kitabs.every(k => k.selected)
+  author.kitabs.forEach(k => { k.selected = !allSelected })
+}
+
+function toggleBook(book) {
+  book.selected = !book.selected
 }
 
 function closeMenu() {
@@ -69,19 +99,11 @@ function closeMenu() {
                  bg-[#f0f5f0]
                  px-4 py-3"
         >
-          <p
-            class="text-[13px]
-                   font-bold
-                   text-[#08745e]"
-          >
+          <p class="text-[13px] font-bold text-[#08745e]">
             Pencarian terstruktur, bukan acak.
           </p>
 
-          <p
-            class="mt-1 text-[12px]
-                   leading-5
-                   text-[#70756f]"
-          >
+          <p class="mt-1 text-[12px] leading-5 text-[#70756f]">
             Muin tidak berhenti pada kitab yang paling dulu cocok.
             Sumber disusun menurut bidang, mazhab, peran kitab,
             dan kebijakan ilmiah domain, lalu diperiksa silang.
@@ -98,32 +120,18 @@ function closeMenu() {
           v-model="onlySelected"
         />
 
-        <!-- INFO -->
-        <div
-          class="mt-3
-                 rounded-xl
-                 border border-[#ddd5c8]
-                 bg-[#faf8f3]
-                 px-4 py-3"
-        >
-          <p
-            class="text-[12px]
-                   leading-5
-                   text-[#6d716b]"
-          >
-            <strong class="text-[#656a64]">
-              Mulai dari bidang/fann.
-            </strong>
-
-            Memilih satu blok memilih seluruh kitab eligible
-            di bawahnya. Anda tetap dapat mengecualikan kitab tertentu.
-          </p>
-        </div>
-
-        <!-- DAFTAR BIDANG -->
-        <ResearchFieldList
+        <!-- KONTEN SUMBER: berganti sesuai tab bidang / mu'allif / kitab -->
+        <ResearchSourceContent
+          :source-tab="activeSourceTab"
+          :only-selected="onlySelected"
           :fields="researchFields"
-          @toggle="toggleField"
+          :authors="researchAuthors"
+          :books="researchBooks"
+          @toggle-field="toggleField"
+          @toggle-author="toggleAuthor"
+          @toggle-kitab="toggleKitab"
+          @toggle-all-author-kitab="toggleAllAuthorKitab"
+          @toggle-book="toggleBook"
         />
 
       </div>

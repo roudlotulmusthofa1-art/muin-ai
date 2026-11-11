@@ -14,15 +14,15 @@ const tabs = [
     label: 'Otomatis'
   },
   {
-    value: 'pilih',
+    value: 'sumber',
     label: 'Pilih Sumber'
   },
   {
-    value: 'satu',
+    value: 'satu-kitab',
     label: 'Studi Satu Kitab'
   },
   {
-    value: 'semua',
+    value: 'semua-kitab',
     label: 'Semua Kitab'
   }
 ]

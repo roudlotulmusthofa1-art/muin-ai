@@ -1,5 +1,6 @@
 <script setup>
-defineProps({
+
+const props = defineProps({
   field: {
     type: Object,
     required: true
@@ -9,11 +10,13 @@ defineProps({
 const emit = defineEmits(['toggle'])
 
 function toggle() {
-  emit('toggle')
+  emit('toggle', props.field)
 }
+
 </script>
 
 <template>
+
   <div
     class="rounded-xl
            border border-[#ddd5c8]
@@ -45,20 +48,21 @@ function toggle() {
             ? 'bg-[#087f65] text-white'
             : field.status === 'warning'
               ? 'text-[#172c46]'
-              : 'border border-[#172c46]'
+              : 'rounded-full border border-[#172c46]'
         "
       >
 
         <span
           v-if="field.status === 'active'"
-          class="text-sm leading-none"
+          class="text-lg font-bold  leading-none"
         >
-          −
+          <!-- − -->
+          +
         </span>
 
         <span
           v-else-if="field.status === 'warning'"
-          class="text-sm leading-none"
+          class="text-lg font-bold  leading-none"
         >
           —
         </span>
@@ -74,6 +78,7 @@ function toggle() {
                  text-[#172c46]"
         >
           {{ field.name }}
+
         </p>
 
         <p
@@ -103,7 +108,7 @@ function toggle() {
       </div>
 
       <span class="text-[#087f65] text-lg">
-        ›
+        >
       </span>
 
     </button>
@@ -125,4 +130,5 @@ function toggle() {
     </div>
 
   </div>
+
 </template>

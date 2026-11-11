@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+/* Token warna & shadow Muin. Dipakai lewat class seperti text-ink, bg-navy, shadow-chip. */
+@theme {
+  /* Warna teks */
+  --color-ink: #1d2433;
+  --color-ink-soft: #5f655d;
+  --color-ink-faint: #9a9e94;
+
+  /* Biru tua (judul, tombol kirim) */
+  --color-navy: #172c46;
+  --color-navy-dark: #0e1d31;
+
+  /* Krem (latar, hover) */
+  --color-cream: #f3ede1;
+  --color-cream-deep: #ebe2d0;
+
+  --color-emerald-brand: #1f6b4a;
+
+  /* Warna khusus modal riset */
+  --color-hijau: #087f65; /* centang & tombol utama */
+  --color-hijau-tua: #066b55; /* hover tombol utama */
+  --color-hijau-muda: #edf6f2; /* latar tab aktif */
+  --color-garis: #ddd5c8; /* garis tepi kartu */
+  --color-kertas: #fdfbf7; /* latar panel modal */
+  --color-krem-muda: #faf8f3; /* latar kotak info */
+
+  --shadow-chip: 0 1px 2px rgb(23 44 70 / 0.06), 0 1px 1px rgb(23 44 70 / 0.04);
+  --shadow-input: 0 10px 30px -12px rgb(23 44 70 / 0.22), 0 2px 6px rgb(23 44 70 / 0.05);
+}
