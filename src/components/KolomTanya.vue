@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-defineProps({
+const props = defineProps({
   modelValue: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
@@ -24,6 +24,14 @@ function onKeydown(e) {
     emit('submit')
   }
 }
+
+// Setelah pertanyaan terkirim (isi kosong lagi), kembalikan tinggi kolom ke semula
+watch(
+  () => props.modelValue,
+  (isi) => {
+    if (!isi && textarea.value) textarea.value.style.height = 'auto'
+  },
+)
 
 defineExpose({ focus: () => textarea.value?.focus() })
 </script>
