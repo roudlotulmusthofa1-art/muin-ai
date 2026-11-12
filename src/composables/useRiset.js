@@ -72,7 +72,9 @@ export function useRiset() {
       return
     }
     const daftar = draf.value.kitabTerpilih
-    draf.value.kitabTerpilih = daftar.includes(id) ? daftar.filter((x) => x !== id) : [...daftar, id]
+    draf.value.kitabTerpilih = daftar.includes(id)
+      ? daftar.filter((x) => x !== id)
+      : [...daftar, id]
   }
 
   // Klik centang grup: kalau semua sudah terpilih → kosongkan, kalau belum → pilih semua
@@ -110,7 +112,10 @@ export function useRiset() {
 
     switch (draf.value.mode) {
       case 'pilih-sumber':
-        return { judul: `Fokus ${jumlah} Kitab · ${total - jumlah} dikecualikan`, keterangan: sumberLain }
+        return {
+          judul: `Fokus ${jumlah} Kitab · ${total - jumlah} dikecualikan`,
+          keterangan: sumberLain,
+        }
       case 'satu-kitab':
         return {
           judul: `Studi Satu Kitab · ${judulKitab(draf.value.kitabTunggal)}`,
@@ -141,6 +146,10 @@ export function useRiset() {
     }
   })
 
+  // jumlah kitab pada pilihan yang sedang dipakai (untuk halaman chat)
+  const jumlahKitabAktif = computed(() => idTerpilihDari(risetAktif.value).length)
+
+
   return {
     draf,
     risetAktif,
@@ -159,5 +168,6 @@ export function useRiset() {
     gunakanPilihan,
     ringkasan,
     labelTombol,
+    jumlahKitabAktif,
   }
 }

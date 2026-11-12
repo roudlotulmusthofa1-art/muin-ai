@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import { useRiset } from './useRiset'
+import { useSesiChat } from './useSesiChat'
 
 export const PILIHAN_CAKUPAN = [
   { id: 'fikih-syafii-riset', label: 'Fikih · Syafi’i · Riset Masalah' },
@@ -19,42 +19,27 @@ export const SARAN = [
  * Semua state bersifat lokal (prototipe, data sintetis).
  */
 export function usePertanyaan() {
-  const { risetAktif } = useRiset()
+  const { mulaiRiset } = useSesiChat()
 
   const pertanyaan = ref('')
   const cakupan = ref(PILIHAN_CAKUPAN[0])
-  const sedangMengirim = ref(false)
-  const terakhirDikirim = ref(null)
 
-  const bisaKirim = computed(() => pertanyaan.value.trim().length > 0 && !sedangMengirim.value)
+
+  const bisaKirim = computed(() => pertanyaan.value.trim().length > 0)
 
   function pakaiSaran(teks) {
     pertanyaan.value = teks
   }
 
-  async function kirim() {
+  function kirim() {
     if (!bisaKirim.value) return
-    sedangMengirim.value = true
-    try {
-      // Tempat memanggil API sebenarnya. Untuk prototipe cukup simulasi.
-      await new Promise((r) => setTimeout(r, 600))
-      terakhirDikirim.value = {
-        pertanyaan: pertanyaan.value.trim(),
-        cakupan: cakupan.value.id,
-        riset: { ...risetAktif.value },
-        waktu: new Date(),
-      }
-      pertanyaan.value = ''
-    } finally {
-      sedangMengirim.value = false
-    }
+    mulaiRiset(pertanyaan.value.trim(), cakupan.value.label)
+    pertanyaan.value = ''
   }
 
   return {
     pertanyaan,
     cakupan,
-    sedangMengirim,
-    terakhirDikirim,
     bisaKirim,
     pakaiSaran,
     kirim,
