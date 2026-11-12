@@ -54,9 +54,7 @@ const route = useRoute()
       </svg>
     </button>
     <!-- LOGO -->
-    <div class="flex justify-center mt-5">
-      <img :src="logo" alt="Muin AI" class="w-24" />
-    </div>
+    
 
     <!-- TOMBOL CHAT BARU -->
     <button
