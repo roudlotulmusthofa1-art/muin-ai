@@ -12,10 +12,10 @@ import DropdownPilihan from '../components/DropdownPilihan.vue'
 import TombolRiset from '../components/TombolRiset.vue'
 import KolomTanya from '../components/KolomTanya.vue'
 import { usePertanyaan, PILIHAN_CAKUPAN, SARAN } from '../composables/usePertanyaan'
-import { useMenuSamping } from '../composables/useMenuSamping'
+
 
 const { pertanyaan, cakupan, bisaKirim, pakaiSaran, kirim } = usePertanyaan()
-const { gantiMenu } = useMenuSamping()
+
 
 const kolomTanya = ref(null)
 
@@ -29,7 +29,7 @@ function pilihSaran(teks) {
   <div class="flex min-h-full flex-col bg-[#F7F2E8]">
 
 
-    <BilahAtas @buka-menu="gantiMenu" />
+        <BilahAtas />
 
     <main class="flex flex-1 flex-col items-center justify-center px-4 pb-20">
       <HeroMerek />

@@ -1,5 +1,9 @@
 <script setup>
-const emit = defineEmits(['buka-menu', 'buka-riwayat', 'ganti-bahasa', 'buka-profil'])
+import TombolMenu from './umum/TombolMenu.vue'
+
+const emit = defineEmits(['buka-riwayat', 'ganti-bahasa', 'buka-profil'])
+
+
 
 defineProps({
   labelRiwayat: { type: String, default: 'Riwayat 3 Hari' },
@@ -9,19 +13,11 @@ defineProps({
 
 <template>
   <header class="flex items-center justify-between px-6 py-6 md:px-16">
-    <!-- HAMBURGER (untuk menu samping nanti; tidak lagi membuka modal riset) -->
-    <button
-      type="button"
-      class="rounded-md p-1 text-ink transition hover:bg-black/5 hover:text-[#1e5e38]"
-      aria-label="Buka menu"
-      @click="emit('buka-menu')"
-    >
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-        <path d="M4 7h16M4 12h16M4 17h16" />
-      </svg>
-    </button>
 
-    <nav class="flex items-center gap-8 text-sm font-semibold text-ink">
+    <!-- HAMBURGER: komponen yang sama dengan halaman lain (hilang saat menu terbuka) -->
+    <TombolMenu />
+
+    <nav class="ml-auto flex items-center gap-8 text-sm font-semibold text-ink">
       <!-- RIWAYAT -->
       <button type="button" class="transition hover:text-[#1e5e38]" @click="emit('buka-riwayat')">
         {{ labelRiwayat }}

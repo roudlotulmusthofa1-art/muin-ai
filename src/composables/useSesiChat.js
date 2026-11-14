@@ -123,6 +123,27 @@ export function useSesiChat() {
     teksLanjutan.value = ''
   }
 
+  // Dipanggil dari halaman Riwayat: buka lagi hasil lama di halaman chat
+  function bukaRiwayat(item) {
+    // Riset yang masih berjalan → jalankan lagi simulasinya
+    if (item.status === 'berjalan') {
+      mulaiRiset(item.pertanyaan, item.cakupan)
+      return
+    }
+    // Riset yang sudah selesai → langsung tampilkan hasilnya
+    hentikanSimulasi()
+    const { jumlahKitabAktif } = useRiset()
+    pertanyaanAktif.value = {
+      teks: item.pertanyaan,
+      cakupan: item.cakupan,
+      jumlahKitab: jumlahKitabAktif.value,
+    }
+    status.value = 'selesai'
+    sitasiAktif.value = null
+    teksLanjutan.value = ''
+    router.push({ name: 'chat' })
+  }
+
   function bukaBukti(id) {
     sitasiAktif.value = id
   }
@@ -162,6 +183,7 @@ export function useSesiChat() {
     cobaLagi,
     ubahPertanyaan,
     chatBaru,
+    bukaRiwayat,
     bukaBukti,
     tutupBukti,
     pilihSkenario,

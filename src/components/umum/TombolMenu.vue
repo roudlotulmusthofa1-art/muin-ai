@@ -5,16 +5,18 @@
 <script setup>
 import { useMenuSamping } from '../../composables/useMenuSamping'
 
-const { menuTerbuka, gantiMenu } = useMenuSamping()
+const { menuTerbuka, bukaMenu } = useMenuSamping()
 </script>
 
 <template>
+    <!-- v-if: tombol hanya dibuat kalau menu sedang tertutup -->
   <button
+    v-if="!menuTerbuka"
     type="button"
     class="rounded-md p-1 text-ink transition hover:bg-black/5 hover:text-[#1e5e38]"
     :aria-label="menuTerbuka ? 'Tutup menu' : 'Buka menu'"
     :aria-expanded="menuTerbuka"
-    @click="gantiMenu"
+    @click="bukaMenu()"
   >
     <svg
       width="22"

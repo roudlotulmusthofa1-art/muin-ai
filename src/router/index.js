@@ -7,7 +7,9 @@ import { useSesiChat } from '../composables/useSesiChat'
 //
 //   localhost:5173/          → HalamanBeranda
 //   localhost:5173/chat      → HalamanChat
-//   localhost:5173/riwayat   → HalamanSegeraHadir (belum dibuat)
+//   localhost:5173/riwayat   → HalamanRiwayat
+//   localhost:5173/ekspor    → HalamanEkspor
+//   localhost:5173/akun      → HalamanAkun
 //   ...
 //
 // "component: () => import(...)" artinya halaman baru DIMUAT saat dibuka
@@ -32,27 +34,21 @@ const routes = [
     },
   },
 
-  // Menu sidebar yang halamannya belum dibuat → satu halaman "Segera hadir".
-  // "meta" = data tambahan bebas; di sini dipakai untuk judul halaman.
   {
     path: '/riwayat',
     name: 'riwayat',
-    component: () => import('../halaman/HalamanSegeraHadir.vue'),
-    meta: { judul: 'Riwayat 3 Hari' },
+    component: () => import('../halaman/HalamanRiwayat.vue'),
   },
   {
     path: '/ekspor',
     name: 'ekspor',
-    component: () => import('../halaman/HalamanSegeraHadir.vue'),
-    meta: { judul: 'Ekspor' },
+    component: () => import('../halaman/HalamanEkspor.vue'),
   },
   {
     path: '/akun',
     name: 'akun',
-    component: () => import('../halaman/HalamanSegeraHadir.vue'),
-    meta: { judul: 'Akun' },
+    component: () => import('../halaman/HalamanAkun.vue'),
   },
-
   // Alamat yang tidak dikenal (misal /asal-ketik) → kembali ke beranda
   { path: '/:pathMatch(.*)*', redirect: { name: 'beranda' } },
 ]
